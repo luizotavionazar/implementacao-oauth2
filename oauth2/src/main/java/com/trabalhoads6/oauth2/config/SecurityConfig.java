@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .invalidateHttpSession(true)   // Invalida a sessão
                 .clearAuthentication(true)     // Limpa a autenticação
                 .deleteCookies("JSESSIONID")   // Apaga o cookie
-                .logoutSuccessUrl("/")         // Volta pra home
+                .logoutSuccessUrl("/userinfo") // Redireciona para /userinfo para confirmar o logout
             )
 
             // Respostas 401 em JSON para requisições não autenticadas
