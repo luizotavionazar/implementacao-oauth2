@@ -22,58 +22,40 @@ public class AuthController {
         this.authorizedClientService = authorizedClientService;
     }
 
-    // Só pra saber se a API está no ar
+    // HOME
     @GetMapping("/")
     public Map<String, Object> root() {
-        Map<String, Object> resp = new HashMap<>();
-        resp.put("message", "API OAuth2 está rodando");
-        resp.put("login_url", "/login");
-        resp.put("userinfo_url", "/userinfo");
-        return resp;
+        Map<String, Object> resposta = new HashMap<>();
+        resposta.put("message", "Aplicação OAuth2 em execução...\n");
+        resposta.put("rota_login", "Utilize /login para logar com o Google");
+        resposta.put("rota_informacoes", "Utilize /userinfo para visualizar as informações do usuário");
+        return resposta;
     }
 
-    // 1 e 2) /login -> redireciona para o provedor OAuth2 (Google)
+    // Redireciona para o provedor OAuth2 do Google para realizar o login
     @GetMapping("/login")
     public void login(HttpServletResponse response) throws IOException {
-        // Redireciona manualmente para o endpoint do Spring Security
-        // que inicia o fluxo OAuth2 com o Google
         response.sendRedirect("/oauth2/authorization/google");
     }
 
-    // 4) /userinfo -> devolve dados básicos do usuário autenticado em JSON
+    // Devolve em um JSON, as informações básicas do usuário autenticado
     @GetMapping("/userinfo")
-    public Map<String, Object> userInfo(@AuthenticationPrincipal OAuth2User principal,
-                                        OAuth2AuthenticationToken authToken) {
-
+    public Map<String, Object> userInfo(@AuthenticationPrincipal OAuth2User dados, OAuth2AuthenticationToken tokenAcesso) {
         Map<String, Object> resposta = new HashMap<>();
 
-        if (principal == null) {
-            resposta.put("authenticated", false);
-            resposta.put("message", "Usuário não está autenticado.");
-            return resposta;
-        }
-
         resposta.put("authenticated", true);
-        resposta.put("name", principal.getAttribute("name"));
-        resposta.put("email", principal.getAttribute("email"));
-        resposta.put("picture", principal.getAttribute("picture"));
+        resposta.put("name", dados.getAttribute("name"));
+        resposta.put("email", dados.getAttribute("email"));
+        resposta.put("picture", dados.getAttribute("picture"));
 
-        // 3) Exemplo: pegar access token recebido do Google
-        OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(
-                authToken.getAuthorizedClientRegistrationId(),
-                authToken.getName()
+        OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient( // Captura o token recebido do Google
+                tokenAcesso.getAuthorizedClientRegistrationId(),
+                tokenAcesso.getName()
         );
 
         if (client != null && client.getAccessToken() != null) {
-            resposta.put("access_token", client.getAccessToken().getTokenValue());
-            resposta.put("access_token_expires_at", client.getAccessToken().getExpiresAt());
-        }
-
-        // Informação se tem refresh token ou não
-        if (client != null && client.getRefreshToken() != null) {
-            resposta.put("has_refresh_token", true);
-        } else {
-            resposta.put("has_refresh_token", false);
+            resposta.put("token_acesso", client.getAccessToken().getTokenValue());
+            resposta.put("token_expiracao", client.getAccessToken().getExpiresAt());
         }
 
         return resposta;
