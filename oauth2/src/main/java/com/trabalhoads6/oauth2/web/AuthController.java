@@ -26,9 +26,9 @@ public class AuthController {
     @GetMapping("/")
     public Map<String, Object> root() {
         Map<String, Object> resposta = new HashMap<>();
-        resposta.put("message", "Aplicação OAuth2 em execução...\n");
-        resposta.put("rota_login", "Utilize /login para logar com o Google");
-        resposta.put("rota_informacoes", "Utilize /userinfo para visualizar as informações do usuário");
+        resposta.put("message", "Aplicação OAuth2 em execução...");
+        resposta.put("rota_login", "Utilize '/login' para logar com o Google");
+        resposta.put("rota_informacoes", "Utilize '/userinfo' para visualizar as informações do usuário");
         return resposta;
     }
 
