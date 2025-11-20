@@ -23,14 +23,14 @@ public class AuthController {
     }
 
     // HOME
-    @GetMapping("/")
+    /*@GetMapping("/api")
     public Map<String, Object> root() {
         Map<String, Object> resposta = new HashMap<>();
         resposta.put("message", "Aplicação OAuth2 em execução...");
         resposta.put("rota_login", "Utilize '/login' para logar com o Google");
         resposta.put("rota_informacoes", "Utilize '/userinfo' para visualizar as informações do usuário");
         return resposta;
-    }
+    }*/
 
     // Redireciona para o provedor OAuth2 do Google para realizar o login
     @GetMapping("/login")
