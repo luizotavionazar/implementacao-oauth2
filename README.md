@@ -1,4 +1,4 @@
-# README — Autenticação com OAuth2 (Utilizando Google)
+# Autenticação com OAuth2 (Utilizando Google)
 Este projeto acadêmico demonstra o funcionamento básico do OAuth2 utilizando o Google como provedor de autenticação. A aplicação contém apenas uma página de login, cujo objetivo é permitir ao aluno compreender o fluxo essencial do OAuth2 na prática.
 
 Objetivo:
