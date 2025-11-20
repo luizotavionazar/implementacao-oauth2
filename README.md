@@ -23,7 +23,7 @@ Provedor Utilizado:
 Funcionamento e riscos:
 
 * Para que o protocolo OAuth2 funcione é necessário informar o Client ID (Identificador público do App) e Client Secret (Senha Confidencial para autenticação) da conta Google.
-Como essas informações são sensiveis, principalmente o Client Secret que não deve ficar exposto pois é uma informação critica e sigilosa, as mesmas devem ser 
+Como essas informações são sensíveis, principalmente o Client Secret que não deve ficar exposto pois é uma informação crítica e sigilosa. Tais informações devem ser 
 informadas diretamente no Ambiente que está rodando a aplicação. 
 
   * Para isso, é necessário definir as variaveis de ambiente CLIENT_ID_GOOGLE e CLIENT_SECRET_GOOGLE com os respectivos valores.
@@ -36,7 +36,7 @@ export CLIENT_SECRET_GOOGLE=[código do client secret obtido no Google Cloud Con
 set CLIENT_ID_GOOGLE=[código do client id obtido no Google Cloud Console]
 set CLIENT_SECRET_GOOGLE=[código do client secret obtido no Google Cloud Console]
 
-  * Essas variaveis de ambiente serão lidas pela aplicação no momento da inicialização e assim o OAuth2 funcionará corretamente.
+  * Essas variáveis de ambiente serão lidas pela aplicação no momento da inicialização e assim o OAuth2 funcionará corretamente.
 
  Abaixo algumas imagens do funcionamento da aplicação desenvolvida:
 
