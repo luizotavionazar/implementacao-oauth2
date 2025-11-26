@@ -7,13 +7,9 @@ Este projeto acadêmico demonstra o funcionamento básico do OAuth2 utilizando o
  **FUNCIONALIDADE**
   
 * Botão “Entrar com Google”;
-
 * Redirecionamento para a página de autenticação do Google;
-
 * Retorno automático para a aplicação com o código de autorização (implícito na aplicação);
-
 * Exibição dos dados da conta Google;
- 
 * Botão 'Sair' para logout;
 
 **PROVEDOR UTILIZADO:**
@@ -34,16 +30,16 @@ Este projeto acadêmico demonstra o funcionamento básico do OAuth2 utilizando o
 * Para isso, é necessário definir as variaveis de ambiente **CLIENT_ID_GOOGLE** e **CLIENT_SECRET_GOOGLE** com os respectivos valores.
 
   * Exemplo em Terminal VsCode (Rodar no mesmo prompt de comando da aplicação antes de iniciar a mesma):
-    $Env:CLIENT_ID_GOOGLE = "[Client ID obtido no Google Cloud Console]"
-    $Env:CLIENT_SECRET_GOOGLE = "[Client Secret obtido no Google Cloud Console]"
+    - $Env:CLIENT_ID_GOOGLE = "[Client ID obtido no Google Cloud Console]"
+    - $Env:CLIENT_SECRET_GOOGLE = "[Client Secret obtido no Google Cloud Console]"
 
   * Exemplo em Linux (Rodar no mesmo terminal da aplicação antes de iniciar a mesma):
-    export CLIENT_ID_GOOGLE=[código do client id obtido no Google Cloud Console]
-    export CLIENT_SECRET_GOOGLE=[código do client secret obtido no Google Cloud Console]
+    - export CLIENT_ID_GOOGLE=[Client ID obtido no Google Cloud Console]
+    - export CLIENT_SECRET_GOOGLE=[Client Secret obtido no Google Cloud Console]
 
   * Exemplo em Windows (Rodar no mesmo prompt de comando da aplicação antes de iniciar a mesma):
-    set CLIENT_ID_GOOGLE=[código do client id obtido no Google Cloud Console]
-    set CLIENT_SECRET_GOOGLE=[código do client secret obtido no Google Cloud Console]
+    - set CLIENT_ID_GOOGLE=[Client ID obtido no Google Cloud Console]
+    - set CLIENT_SECRET_GOOGLE=[Client Secret obtido no Google Cloud Console]
 
 * Essas variáveis de ambiente serão lidas pela aplicação no momento da sua inicialização, permitindo que OAuth2 funcione corretamente.
  
