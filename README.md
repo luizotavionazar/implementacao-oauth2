@@ -50,8 +50,12 @@ Este projeto acadêmico demonstra o funcionamento básico do OAuth2 utilizando o
   <img width="1853" height="863" alt="Captura de tela 2025-11-19 234235" src="https://github.com/user-attachments/assets/be18c489-0371-401a-ad8a-967188965414" />
   
 
-  <img width="1636" height="740" alt="Captura de tela 2025-11-19 234331" src="https://github.com/user-attachments/assets/21b87e6e-fda4-4d88-bea5-297444edcedf" />
-
-
 <img width="1469" height="797" alt="Captura de tela 2025-11-19 234405" src="https://github.com/user-attachments/assets/929d2f62-cefa-4b75-a307-8cbf9123d2b7" />
-<img width="1318" height="797" alt="Captura de tela 2025-11-19 234434" src="https://github.com/user-attachments/assets/ba6d782f-d2bd-4af7-9b46-2f237ea67148" />
+
+
+ <img width="918" height="666" alt="Captura de tela 2025-11-26 002110" src="https://github.com/user-attachments/assets/ed549503-4caa-472b-b4f0-342ed2e6fd4a" />
+
+
+
+
+
