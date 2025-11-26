@@ -26,7 +26,6 @@ function carregarDadosUsuario() {
     }
 }
 
-
 function realizarLogout() {
     fetch("http://localhost:8080/logout", {
             method: "POST",
@@ -37,17 +36,5 @@ function realizarLogout() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
-    // Ativar login (somente se o botão existir)
-    const loginButton = document.getElementById("googleBtn");
-    if (loginButton) {
-        loginButton.addEventListener("click", iniciarLoginGoogle);
-    }
-
     carregarDadosUsuario();
-
-    const logoutButton = document.getElementById("logoutBtn");
-    if (logoutButton) {
-        logoutButton.addEventListener("click", realizarLogout);
-    }
 });

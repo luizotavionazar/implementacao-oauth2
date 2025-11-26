@@ -1,6 +1,7 @@
 package com.trabalhoads6.oauth2.web;
 
 import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
@@ -10,42 +11,40 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class AuthController {
+public class EndPointsController {
 
-    private final OAuth2AuthorizedClientService authorizedClientService;
+    private final OAuth2AuthorizedClientService servicoAutorizacao;
 
-    public AuthController(OAuth2AuthorizedClientService authorizedClientService) {
-        this.authorizedClientService = authorizedClientService;
+    public EndPointsController(OAuth2AuthorizedClientService servicoAutorizacao) {
+        this.servicoAutorizacao = servicoAutorizacao;
     }
 
-    // Redireciona para o provedor OAuth2 do Google para realizar o login
-    @GetMapping("/login")
+    @GetMapping("/login") // Endpoint para facilidar o redirecionamento para o login do Google
     public void login(HttpServletResponse response) throws IOException {
         response.sendRedirect("/oauth2/authorization/google");
     }
 
-    // Devolve em um JSON, as informações básicas do usuário autenticado
-    @GetMapping("/userinfo")
+    @GetMapping("/usuario") // Endpoint para obter JSON das informações do usuário logado
     public Map<String, Object> userInfo(@AuthenticationPrincipal OAuth2User dados, OAuth2AuthenticationToken tokenAcesso) {
         Map<String, Object> resposta = new HashMap<>();
 
-        resposta.put("authenticated", true);
-        resposta.put("name", dados.getAttribute("name"));
+        resposta.put("nome", dados.getAttribute("name"));
         resposta.put("email", dados.getAttribute("email"));
-        resposta.put("picture", dados.getAttribute("picture"));
+        resposta.put("foto", dados.getAttribute("picture"));
 
-        OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient( // Captura o token recebido do Google
+        OAuth2AuthorizedClient cliente = servicoAutorizacao.loadAuthorizedClient( // Captura o token recebido do Google
                 tokenAcesso.getAuthorizedClientRegistrationId(),
                 tokenAcesso.getName()
         );
 
-        if (client != null && client.getAccessToken() != null) {
-            resposta.put("token_acesso", client.getAccessToken().getTokenValue());
-            resposta.put("token_expiracao", client.getAccessToken().getExpiresAt());
+        if (cliente != null && cliente.getAccessToken() != null) {
+            resposta.put("token_acesso", cliente.getAccessToken().getTokenValue());
+            resposta.put("expiracao_token", cliente.getAccessToken().getExpiresAt());
         }
 
         return resposta;

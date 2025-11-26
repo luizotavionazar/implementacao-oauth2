@@ -8,62 +8,51 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
-
 @Configuration
-public class SecurityConfig {
-
+public class SegurancaAcesso {
     @Autowired
-    private OAuth2SuccessHandler successHandler;
+    private RetornoDados dadosUsuario;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .cors(cors -> {})
-            .csrf(csrf -> csrf.disable()) 
+            .csrf(csrf -> csrf.disable())
 
-            // Regras de autorização
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
+                .requestMatchers( // Onde pode acessar sem fazer login
                     "/", 
                     "/index.html",
-                    "/visualizacao.html",
                     "/style.css",
                     "/script.js",
-                    "/favicon.ico",
                     "/assets/**",
-                    "/icons/**",
-                    "/canvaskit/**",
-                    "/login",
-                    "/csrf-token"
+                    "/login"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
 
-            // Login via OAuth2 (Google)
             .oauth2Login(oauth2 -> oauth2
                 .loginPage("/login")
-                .successHandler(successHandler)
+                .successHandler(dadosUsuario)
             )
 
-            // Logout via POST /logout
-            .logout(logout -> logout
-                .logoutUrl("/logout")          
-                .invalidateHttpSession(true)   // Invalida a sessão
-                .clearAuthentication(true)     // Limpa a autenticação
-                .deleteCookies("JSESSIONID")   // Apaga o cookie
-                .logoutSuccessUrl("/")
-                .permitAll()
-            )
-
-            // Respostas 401 em JSON para requisições não autenticadas
-            .exceptionHandling(ex -> ex
+            .exceptionHandling(ex -> ex // Quando não autenticado
                 .authenticationEntryPoint((request, response, authException) -> {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     response.setContentType("application/json;charset=UTF-8");
                     response.getWriter().write("""
-                        {"authenticated": false, "message": "Usuário não está autenticado."}
+                        {"mensagem": "Usuário não está autenticado, realize o login primeiro!"}
                         """);
                 })
+            )
+
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .invalidateHttpSession(true)  // Invalida a sessão
+                .clearAuthentication(true)    // Limpa a autenticação
+                .deleteCookies("JSESSIONID")  // Apaga o cookie
+                .logoutSuccessUrl("/")        // Redireciona após logout
+                .permitAll()
             );
 
         return http.build();
